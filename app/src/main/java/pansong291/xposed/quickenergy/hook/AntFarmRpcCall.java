@@ -3,6 +3,7 @@ package pansong291.xposed.quickenergy.hook;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
+
 import pansong291.xposed.quickenergy.util.RandomUtils;
 
 public class AntFarmRpcCall {
@@ -51,7 +52,7 @@ public class AntFarmRpcCall {
 
     public static String orchardRecallAnimal(String animalId, String userId) {
         String args1 = "[{\"animalId\":\"" + animalId + "\",\"orchardUserId\":\"" + userId +
-                "\",\"requestType\":\"NORMAL\",\"sceneCode\":\"ORCHARD\",\"source\":\"zhuangyuan_zhaohuixiaoji\",\"version\":\"\"0.1.2307042001.2\"\"}]";
+                "\",\"requestType\":\"NORMAL\",\"sceneCode\":\"ORCHARD\",\"source\":\"zhuangyuan_zhaohuixiaoji\",\"version\":\"0.1.2403061630.6\"}]";
         return RpcUtil.request("com.alipay.antorchard.recallAnimal", args1);
     }
 
@@ -191,6 +192,20 @@ public class AntFarmRpcCall {
                         + "\",\"requestType\":\"NORMAL\",\"sceneCode\":\"ANTFARM\",\"source\":\"H5\",\"toolTypes\":\"STEALTOOL,ACCELERATETOOL,SHARETOOL\"}]");
     }
 
+    public static int RandomScore(String str) {
+        if ("starGame".equals(str)) {
+            return RandomUtils.nextInt(200, 300);
+        } else if ("jumpGame".equals(str)) {
+            return RandomUtils.nextInt(150, 170) * 10;
+        } else if ("flyGame".equals(str)) {
+            return RandomUtils.nextInt(5000, 8000);
+        } else if ("hitGame".equals(str)) {
+            return RandomUtils.nextInt(60, 100);
+        } else {
+            return 210;
+        }
+    }
+
     public static String recordFarmGame(String gameType) {
         String uuid = getUuid();
         String md5String = getMD5(uuid);
@@ -208,18 +223,6 @@ public class AntFarmRpcCall {
                         + "\",\"requestType\":\"NORMAL\",\"sceneCode\":\"ANTFARM\",\"score\":" + score
                         + ",\"source\":\"H5\",\"toolTypes\":\"STEALTOOL,ACCELERATETOOL,SHARETOOL\",\"uuid\":\"" + uuid
                         + "\"}]");
-    }
-
-    public static int RandomScore(String str) {
-        if ("starGame".equals(str)) {
-            return RandomUtils.nextInt(200, 300);
-        } else if ("jumpGame".equals(str)) {
-            return RandomUtils.nextInt(150, 170) * 10;
-        } else if ("flyGame".equals(str)) {
-            return RandomUtils.nextInt(5000, 8000);
-        } else {
-            return 210;
-        }
     }
 
     private static String getUuid() {

@@ -89,6 +89,8 @@ public class Config {
     public static final String jn_receiveFarmToolReward = "receiveFarmToolReward";
     public static final String jn_recordFarmGame = "recordFarmGame";
     public static final String jn_kitchen = "kitchen";
+
+    public static final String jn_useSpecialFood = "useSpecialFood";
     public static final String jn_useNewEggTool = "useNewEggTool";
     public static final String jn_harvestProduce = "harvestProduce";
     public static final String jn_donation = "donation";
@@ -148,6 +150,9 @@ public class Config {
     public static final String jn_zcjSignIn = "zcjSignIn";
     public static final String jn_merchantKmdk = "merchantKmdk";
     public static final String jn_greenFinance = "greenFinance";
+    public static final String jn_antBookRead = "antBookRead";
+    public static final String jn_consumeGold = "consumeGold";
+    public static final String jn_omegakoiTown = "omegakoiTown";
 
     public static volatile boolean shouldReload;
     public static volatile boolean hasChanged;
@@ -214,6 +219,8 @@ public class Config {
 
     private boolean exchangeEnergyDoubleClick;
     private int exchangeEnergyDoubleClickCount;
+    private boolean exchangeEnergyShield;
+    private int exchangeEnergyShieldCount;
     private boolean antdodoCollect;
     private boolean antOcean;
     private boolean userPatrol;
@@ -231,6 +238,7 @@ public class Config {
     private boolean receiveFarmToolReward;
     private boolean recordFarmGame;
     private boolean kitchen;
+    private boolean useSpecialFood;
     private boolean useNewEggTool;
     private boolean harvestProduce;
     private boolean donation;
@@ -287,6 +295,9 @@ public class Config {
     private boolean zcjSignIn;
     private boolean merchantKmdk;
     private boolean greenFinance;
+    private boolean antBookRead;
+    private boolean consumeGold;
+    private boolean omegakoiTown;
 
     /* base */
     private static volatile Config config;
@@ -696,7 +707,7 @@ public class Config {
         return getConfig().energyRain;
     }
 
-    public static boolean ExchangeEnergyDoubleClick() {
+    public static boolean exchangeEnergyDoubleClick() {
         return getConfig().exchangeEnergyDoubleClick;
     }
 
@@ -714,6 +725,24 @@ public class Config {
         hasChanged = true;
     }
 
+
+    public static boolean exchangeEnergyShield() {
+        return getConfig().exchangeEnergyShield;
+    }
+
+    public static void setExchangeEnergyShield(boolean b) {
+        getConfig().exchangeEnergyShield = b;
+        hasChanged = true;
+    }
+
+    public static int getExchangeEnergyShieldCount() {
+        return getConfig().exchangeEnergyShieldCount;
+    }
+
+    public static void setExchangeEnergyShieldCount(int i) {
+        getConfig().exchangeEnergyShieldCount = i;
+        hasChanged = true;
+    }
     public static void setAncientTreeOnlyWeek(boolean b) {
         getConfig().ancientTreeOnlyWeek = b;
         hasChanged = true;
@@ -861,6 +890,15 @@ public class Config {
 
     public static boolean kitchen() {
         return getConfig().kitchen;
+    }
+
+    public static void setUseSpecialFood(boolean b) {
+        getConfig().useSpecialFood = b;
+        hasChanged = true;
+    }
+
+    public static boolean useSpecialFood() {
+        return getConfig().useSpecialFood;
     }
 
     public static void setUseNewEggTool(boolean b) {
@@ -1320,6 +1358,33 @@ public class Config {
         return getConfig().greenFinance;
     }
 
+    public static void setAntBookRead(boolean b) {
+        getConfig().antBookRead = b;
+        hasChanged = true;
+    }
+
+    public static boolean antBookRead() {
+        return getConfig().antBookRead;
+    }
+
+    public static void setConsumeGold(boolean b) {
+        getConfig().consumeGold = b;
+        hasChanged = true;
+    }
+
+    public static boolean consumeGold() {
+        return getConfig().consumeGold;
+    }
+
+    public static void setOmegakoiTown(boolean b) {
+        getConfig().omegakoiTown = b;
+        hasChanged = true;
+    }
+
+    public static boolean omegakoiTown() {
+        return getConfig().omegakoiTown;
+    }
+
     /* base */
     private static synchronized Config getConfig() {
         if (config == null || shouldReload && config.immediateEffect) {
@@ -1400,6 +1465,8 @@ public class Config {
             c.giveEnergyRainList = new ArrayList<>();
         c.exchangeEnergyDoubleClick = false;
         c.exchangeEnergyDoubleClickCount = 6;
+        c.exchangeEnergyShield = false;
+        c.exchangeEnergyShieldCount = 6;
         c.ancientTreeOnlyWeek = true;
         c.antdodoCollect = true;
         c.antOcean = true;
@@ -1418,6 +1485,7 @@ public class Config {
         c.receiveFarmToolReward = true;
         c.recordFarmGame = true;
         c.kitchen = true;
+        c.useSpecialFood = false;
         c.useNewEggTool = true;
         c.harvestProduce = true;
         c.donation = true;
@@ -1478,6 +1546,9 @@ public class Config {
         c.zcjSignIn = false;
         c.merchantKmdk = false;
         c.greenFinance = false;
+        c.antBookRead = false;
+        c.consumeGold = false;
+        c.omegakoiTown = false;
         return c;
     }
 
@@ -1716,6 +1787,12 @@ public class Config {
             config.exchangeEnergyDoubleClickCount = jo.optInt("exchangeEnergyDoubleClickCount", 6);
             Log.i(TAG, "exchangeEnergyDoubleClickCount" + ":" + config.exchangeEnergyDoubleClickCount);
 
+            config.exchangeEnergyShield = jo.optBoolean("exchangeEnergyShield", false);
+            Log.i(TAG, "exchangeEnergyShield" + ":" + config.exchangeEnergyShield);
+
+            config.exchangeEnergyShieldCount = jo.optInt("exchangeEnergyShieldCount", 6);
+            Log.i(TAG, "exchangeEnergyShieldCount" + ":" + config.exchangeEnergyShieldCount);
+
             config.ancientTreeOnlyWeek = jo.optBoolean(jn_ancientTreeOnlyWeek, true);
             //Log.i(TAG, jn_ancientTreeOnlyWeek + ":" + config.ancientTreeOnlyWeek);
 
@@ -1770,6 +1847,8 @@ public class Config {
 
             config.kitchen = jo.optBoolean(jn_kitchen, true);
             //Log.i(TAG, jn_kitchen + ":" + config.kitchen);
+
+            config.useSpecialFood = jo.optBoolean(jn_useSpecialFood, false);
 
             config.useNewEggTool = jo.optBoolean(jn_useNewEggTool, true);
             //Log.i(TAG, jn_useNewEggTool + ":" + config.useNewEggTool);
@@ -1969,17 +2048,20 @@ public class Config {
             config.insBlueBeanExchange = jo.optBoolean(jn_insBlueBeanExchange, true);
             //Log.i(TAG, jn_insBlueBeanExchange + ":" + config.insBlueBeanExchange);
 
-            config.collectSesame = jo.optBoolean(jn_collectSesame, true);
-            //Log.i(TAG, jn_collectSesame + ":" + config.collectSesame);
+            config.collectSesame = jo.optBoolean(jn_collectSesame, false);
 
-            config.zcjSignIn = jo.optBoolean(jn_zcjSignIn, true);
-            //Log.i(TAG, jn_zcjSignIn + ":" + config.zcjSignIn);
+            config.zcjSignIn = jo.optBoolean(jn_zcjSignIn, false);
 
-            config.merchantKmdk = jo.optBoolean(jn_merchantKmdk, true);
-            //Log.i(TAG, jn_merchantKmdk + ":" + config.merchantKmdk);
+            config.merchantKmdk = jo.optBoolean(jn_merchantKmdk, false);
 
             config.greenFinance = jo.optBoolean(jn_greenFinance, false);
-            //Log.i(TAG, jn_greenFinance + ":" + config.greenFinance);
+
+            config.antBookRead = jo.optBoolean(jn_antBookRead, false);
+
+            config.consumeGold = jo.optBoolean(jn_consumeGold, false);
+
+            config.omegakoiTown = jo.optBoolean(jn_omegakoiTown, false);
+
         } catch (Throwable t) {
             Log.printStackTrace(TAG, t);
             if (json != null) {
@@ -2147,6 +2229,10 @@ public class Config {
 
             jo.put("exchangeEnergyDoubleClickCount", config.exchangeEnergyDoubleClickCount);
 
+            jo.put("exchangeEnergyShield", config.exchangeEnergyShield);
+
+            jo.put("exchangeEnergyShieldCount", config.exchangeEnergyShieldCount);
+
             jo.put(jn_ancientTreeOnlyWeek, config.ancientTreeOnlyWeek);
 
             jo.put(jn_antdodoCollect, config.antdodoCollect);
@@ -2183,6 +2269,8 @@ public class Config {
             jo.put(jn_recordFarmGame, config.recordFarmGame);
 
             jo.put(jn_kitchen, config.kitchen);
+
+            jo.put(jn_useSpecialFood, config.useSpecialFood);
 
             jo.put(jn_useNewEggTool, config.useNewEggTool);
 
@@ -2313,6 +2401,12 @@ public class Config {
 
             jo.put(jn_greenFinance, config.greenFinance);
 
+            jo.put(jn_antBookRead, config.antBookRead);
+
+            jo.put(jn_consumeGold, config.consumeGold);
+
+            jo.put(jn_omegakoiTown, config.omegakoiTown);
+
         } catch (Throwable t) {
             Log.printStackTrace(TAG, t);
         }
@@ -2320,15 +2414,15 @@ public class Config {
     }
 
     public static String formatJson(JSONObject jo, boolean removeQuote) {
-        String formated;
+        String formatted;
         try {
-            formated = jo.toString(4);
+            formatted = jo.toString(4);
         } catch (Throwable t) {
             return jo.toString();
         }
         if (!removeQuote)
-            return formated;
-        StringBuilder sb = new StringBuilder(formated);
+            return formatted;
+        StringBuilder sb = new StringBuilder(formatted);
         char currentChar, lastNonSpaceChar = 0;
         for (int i = 0; i < sb.length(); i++) {
             currentChar = sb.charAt(i);
@@ -2354,8 +2448,8 @@ public class Config {
                     lastNonSpaceChar = currentChar;
             }
         }
-        formated = sb.toString();
-        return formated;
+        formatted = sb.toString();
+        return formatted;
     }
 
     private static PendingIntent alarm7Pi;
